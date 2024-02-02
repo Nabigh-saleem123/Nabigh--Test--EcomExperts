@@ -85,7 +85,7 @@ function handleVariantSelectOptions(){
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest' // Necessary for Shopify to recognize the AJAX request
+        'X-Requested-With': 'XMLHttpRequest' 
       },
       body: JSON.stringify({
         id: variantIdToRemove,
@@ -113,7 +113,6 @@ function handleVariantSelectOptions(){
     });
   }
   
-  // Usage
   document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(event) {
       // Adjust the selector based on your specific button's attributes
