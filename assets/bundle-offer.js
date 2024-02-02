@@ -1,8 +1,8 @@
 function handleVariantSelectOptions(){
     // Function to handle variant option to pick and diable
     var selectInitialValue = document.getElementById('Option-template--15157697052758__main-1').value;
-    var addToCartButton = document.getElementById('ProductSubmitButton-template--15157697052758__main');
-    var buyButton = document.querySelector('shopify-payment-button__button');
+    var addToCartButton = document.querySelector('.product-form__submit');
+    var buyButton = document.querySelector('.shopify-payment-button__button');
     // Checking the option and making sure if Unselected is the value
     if (selectInitialValue === "Unselected") {
         addToCartButton.style.pointerEvents = "none"; 
