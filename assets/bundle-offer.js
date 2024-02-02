@@ -32,14 +32,14 @@ function handleVariantSelectOptions(){
     setTimeout(handleVariantSelectOptions, 1000);
   });
 
-  // adding function to add one more hidden product when variant Tan and middle is selected and added to cart
+// adding function to add one more hidden product when variant Tan and middle is selected and added to cart
   document.addEventListener('DOMContentLoaded', function() {
-    const TARGET_VARIANT_ID = '40631393321046'; // The specific product variant ID to check
+    const TARGET_VARIANT_ID = '40631393321046'; // Variant id of Tan & Medium
     const SOFT_WINTER_JACKET = '40621519306838'; // Variant ID of the "Soft Winter Jacket"
     let jacketAdded = false; // Flag to track if the jacket has been added
   
     document.querySelectorAll('.product-form__submit').forEach(button => {
-        button.addEventListener('click', function(event) {
+        button.addEventListener('click', function() {
             // Check cart contents before adding the additional product
             fetch('/cart.js')
             .then(response => response.json())
@@ -47,7 +47,7 @@ function handleVariantSelectOptions(){
                 const isInCart = cart.items.some(item => item.id.toString() === TARGET_VARIANT_ID);
                 const isBeingAdded = this.closest('form').querySelector('[name="id"]').value === TARGET_VARIANT_ID;
                 
-                // If the target product variant is in the cart or is the one being added, and the jacket hasn't been added yet, add the jacket
+                // If variant is in the cart or is the one being added, and the jacket hasn't been added yet, add the jacket
                 if ((isInCart || isBeingAdded) && !jacketAdded) {
                     let formData = {
                         'items': [{
@@ -65,7 +65,7 @@ function handleVariantSelectOptions(){
                     })
                     .then(response => {
                         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                        return response.json(); // Parse the JSON of the response.
+                        return response.json();
                     })
                     .then(data => {
                         console.log('Jacket added to cart:', data);
@@ -79,4 +79,58 @@ function handleVariantSelectOptions(){
         });
     });
   });
+  // Removing product if the main product variant is removed from cart
+  function removeFromCart(variantIdToRemove, callback) {
+    fetch('/cart/change.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest' // Necessary for Shopify to recognize the AJAX request
+      },
+      body: JSON.stringify({
+        id: variantIdToRemove,
+        quantity: 0 // Setting the quantity to 0 will remove the item
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Network response was not ok.');
+    })
+    .then(data => {
+      console.log('Product removed', data);
+      // Check if callback is provided and execute it, useful for chaining removals
+      if (typeof callback === 'function') {
+        callback();
+      } else {
+        // Optionally, refresh the page or update the cart UI to reflect the removal
+        location.reload(); // Simple way to refresh the cart page and show the updated cart
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
   
+  // Usage
+  document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('click', function(event) {
+      // Adjust the selector based on your specific button's attributes
+      var clickedElement = event.target;
+      var removeButton = clickedElement.closest('a[aria-label="Remove Hand Bag - Tan / Medium"]');
+  
+      if (removeButton) {
+        event.preventDefault(); // Prevent the default anchor action
+  
+        // Define the variant IDs
+        var tanVariantId = '40631393321046'; // Variant ID of the product directly associated with the button
+        var jacketVariantId = '40621519306838'; // Variant ID of the product to also remove
+        
+        // Remove the primary product and then the secondary
+        removeFromCart(tanVariantId, function() {
+          removeFromCart(jacketVariantId);
+        });
+      }
+    });
+  });
