@@ -21,13 +21,12 @@ function handleVariantSelectOptions(){
   // Attach the function to DOM ready event
   document.addEventListener('DOMContentLoaded', function () {
     // Call the function on DOM ready
-    handleOptionChange();
+    handleVariantSelectOptions();
   
     // Add a change event listener to the select element
     var selectedOption = document.getElementById('Option-template--22058985128211__main-1');
-    selectedOption.addEventListener("change", handleOptionChange);
+    selectedOption.addEventListener("change", handleVariantSelectOptions);
     
     // Add setTimeout to call the function after 1 second
-    setTimeout(handleOptionChange, 1000);
+    setTimeout(handleVariantSelectOptions, 1000);
   });
-  console.log("testing")
