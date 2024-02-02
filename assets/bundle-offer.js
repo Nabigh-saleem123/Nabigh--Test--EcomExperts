@@ -24,7 +24,7 @@ function handleVariantSelectOptions(){
     handleVariantSelectOptions();
   
     // Add a change event listener to the select element
-    var selectedOption = document.getElementById('Option-template--22058985128211__main-1');
+    var selectedOption = document.getElementById('Option-template--15157697052758__main-1');
     selectedOption.addEventListener("change", handleVariantSelectOptions);
     
     // Add setTimeout to call the function after 1 second
