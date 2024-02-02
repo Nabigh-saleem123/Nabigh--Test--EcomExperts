@@ -3,7 +3,6 @@ function handleVariantSelectOptions(){
     var selectInitialValue = document.getElementById('Option-template--15157697052758__main-1').value;
     var addToCartButton = document.querySelector('.product-form__submit');
     var buyButton = document.querySelector('.shopify-payment-button__button');
-    console.log(selectInitialValue)
     // Checking the option and making sure if Unselected is the value
     if (selectInitialValue === "Unselected") {
         addToCartButton.style.pointerEvents = "none"; 
@@ -20,6 +19,8 @@ function handleVariantSelectOptions(){
   
   // Attach the function to DOM ready event
   document.addEventListener('DOMContentLoaded', function () {
+    var selectElementOnLoad = document.getElementById('Option-template--15157697052758__main-1');
+    selectElementOnLoad.value = 'Unselected';
     // Call the function on DOM ready
     handleVariantSelectOptions();
   
