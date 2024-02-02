@@ -29,4 +29,4 @@ function handleVariantSelectOptions(){
     // Add setTimeout to call the function after 1 second
     setTimeout(handleOptionChange, 1000);
   });
-  
+  console.log("this is working")
