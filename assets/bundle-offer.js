@@ -33,56 +33,58 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // adding function to add one more hidden product when variant Tan and middle is selected and added to cart
-document.addEventListener('DOMContentLoaded', function () {
-  const TARGET_VARIANT_ID = '40631392993366'; // Variant id of Tan & Medium
-  const SOFT_WINTER_JACKET = '40621519306838'; // Variant ID of the "Soft Winter Jacket"
+document.addEventListener('DOMContentLoaded', function() {
+  const TARGET_VARIANT_ID = '40631392993366'; // The specific product variant ID to check
+  const JACKET_ID = '40621519306838'; // Variant ID of the "Soft Winter Jacket"
+  var customSizeSelect = document.getElementById('custom-size');
 
   // Add event listener for change event
-  customSizeSelect.addEventListener('change', function () {
-    // Get the selected value
-    var customSizeValue = customSizeSelect.value;
+  customSizeSelect.addEventListener('change', function() {
+      // Get the selected value
+      var newValue = customSizeSelect.value;
+      console.log(newValue);
 
-    if (customSizeValue === "Medium") {
-      // Attach event listener to buttons
-      document.querySelectorAll('.product-form__submit').forEach(button => {
-        button.addEventListener('click', function (event) {
-          // Check cart contents before adding the additional product
-          fetch('/cart.js')
-            .then(response => response.json())
-            .then(cart => {
-              const isBeingAdded = this.closest('form').querySelector('[name="id"]').value === TARGET_VARIANT_ID;
+      if(newValue === "Medium") {
+          // Attach event listener to buttons
+          document.querySelectorAll('.product-form__submit').forEach(button => {
+              button.addEventListener('click', function(event) {
+                  // Check cart contents before adding the additional product
+                  fetch('/cart.js')
+                  .then(response => response.json())
+                  .then(cart => {
+                      const isBeingAdded = this.closest('form').querySelector('[name="id"]').value === TARGET_VARIANT_ID;
 
-              // If the target product variant is the one being added, add the jacket
-              if (isBeingAdded) {
-                let formData = {
-                  'items': [{
-                    'id': SOFT_WINTER_JACKET,
-                    'quantity': 1
-                  }]
-                };
+                      // If the target product variant is the one being added, add the jacket
+                      if (isBeingAdded) {
+                          let formData = {
+                              'items': [{
+                                  'id': JACKET_ID,
+                                  'quantity': 1
+                              }]
+                          };
 
-                fetch('/cart/add.js', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify(formData)
-                })
-                  .then(response => {
-                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                    return response.json(); // Parse the JSON of the response.
-                  })
-                  .then(data => {
-                    console.log('Jacket added to cart:', data);
-                  })
-                  .catch(error => {
-                    console.error('Error adding jacket to cart:', error);
+                          fetch('/cart/add.js', {
+                              method: 'POST',
+                              headers: {
+                                  'Content-Type': 'application/json'
+                              },
+                              body: JSON.stringify(formData)
+                          })
+                          .then(response => {
+                              if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                              return response.json(); // Parse the JSON of the response.
+                          })
+                          .then(data => {
+                              console.log('Jacket added to cart:', data);
+                          })
+                          .catch(error => {
+                              console.error('Error adding jacket to cart:', error);
+                          });
+                      }
                   });
-              }
-            });
-        });
-      });
-    }
+              });
+          });
+      }
   });
 });
 
