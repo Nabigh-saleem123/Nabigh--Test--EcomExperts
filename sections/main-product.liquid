@@ -409,6 +409,17 @@
 
             {%- when 'variant_picker' -%}
               {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+
+
+              {% if product.title == 'Hand Bag' %}
+                <p>Size</p>
+                  <select id="custom-size">
+                      <option>Unselected</option>
+                      <option>Small</option>
+                      <option>Medium</option>
+                      <option>Large</option>
+                  </select>
+              {% endif %}
             {%- when 'buy_buttons' -%}
               {%- render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true -%}
             {%- when 'rating' -%}

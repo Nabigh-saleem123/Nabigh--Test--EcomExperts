@@ -70,7 +70,11 @@
   --shadow-opacity: var(--media-shadow-opacity);
   --shadow-visible: var(--media-shadow-visible);
 }
-
+img.variant-option-image {
+  width: 62px;
+  height: 69px;
+  padding: 7px;
+}
 /* base */
 
 .no-js:not(html) {
