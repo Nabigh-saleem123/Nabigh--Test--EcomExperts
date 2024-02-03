@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // adding function to add one more hidden product when variant Tan and middle is selected and added to cart
 document.addEventListener('DOMContentLoaded', function () {
-  const TARGET_VARIANT_ID = '40631393321046'; // Variant id of Tan & Medium
+  const TARGET_VARIANT_ID = '40631393058902'; // Variant id of Tan & Medium
   const SOFT_WINTER_JACKET = '40621519306838'; // Variant ID of the "Soft Winter Jacket"
  
   document.querySelectorAll('.product-form__submit').forEach(button => {
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
       event.preventDefault(); // Prevent the default anchor action
 
       // Define the variant IDs
-      var tanVariantId = '40631393321046'; // Variant ID of the product directly associated with the button
+      var tanVariantId = '40631393058902'; // Variant ID of the product directly associated with the button
       var jacketVariantId = '40621519306838'; // Variant ID of the product to also remove
 
       // Remove the primary product and then the secondary
