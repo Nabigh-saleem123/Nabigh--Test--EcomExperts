@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Removing product if the main product variant is removed from cart
-function removeFromCart(variantIdToRemove, callback) {
+function removeFromCart(jacketVariantId, callback) {
   fetch('/cart/change.js', {
     method: 'POST',
     headers: {
@@ -97,7 +97,7 @@ function removeFromCart(variantIdToRemove, callback) {
       'X-Requested-With': 'XMLHttpRequest'
     },
     body: JSON.stringify({
-      id: variantIdToRemove,
+      id: jacketVariantId,
       quantity: 0 // Setting the quantity to 0 will remove the item
     })
   })
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.addEventListener('click', function (event) {
     // Adjust the selector based on your specific button's attributes
     var clickedElement = event.target;
-    var removeButton = clickedElement.closest('a[aria-label="Remove Hand Bag - Tan / Medium"]');
+    var removeButton = clickedElement.closest('a[data-variant-id="40631392993366"]');
 
     if (removeButton) {
       event.preventDefault(); // Prevent the default anchor action
