@@ -411,15 +411,20 @@
               {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 
 
-              {% if product.title == 'Hand Bag' %}
-                <p>Size</p>
-                  <select id="custom-size">
-                      <option>Unselected</option>
-                      <option>Small</option>
-                      <option>Medium</option>
-                      <option>Large</option>
-                  </select>
-              {% endif %}
+            {% if product.title == 'Hand Bag' %}
+
+              <p>Size</p>
+               <select name="properties[Size]" id="custom-size">
+                {% for variant in product.variants %}
+                {% if product.selected_or_first_available_variant.id == variant.id %}
+                    <option value="Unselected">{{ variant.metafields.custom.size_unselected }}</option>
+                    <option value="Small">{{ variant.metafields.custom.size_small }}</option>
+                    <option value="Medium">{{ variant.metafields.custom.size_medium }}</option>
+                    <option value="Large">{{ variant.metafields.custom.size_large }}</option>
+                  {% endif %}
+                {% endfor %}  
+                </select>
+            {% endif %}
             {%- when 'buy_buttons' -%}
               {%- render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true -%}
             {%- when 'rating' -%}

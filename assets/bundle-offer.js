@@ -142,3 +142,36 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Select the dropdown and the hidden input
+  var sizeSelect = document.getElementById('custom-size'); // Assuming this is the ID of your size dropdown
+  var hiddenInput = document.getElementById('hiddenCustomVariantInput');
+
+  // Listen for changes on the dropdown
+  sizeSelect.addEventListener('change', function() {
+    // Update the hidden input's value with the selected size
+    hiddenInput.value = this.value;
+  });
+});
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form[action="/cart/add"]');
+    if (!form) return; // Guard clause if the form isn't found
+
+    form.addEventListener('submit', function() {
+        // No e.preventDefault();
+        // Here, you can perform any last-minute updates to the form data.
+        // For example, ensuring the custom variant size is included:
+        const customSizeSelect = document.getElementById('custom-size');
+        const customVariantInput = document.createElement('input');
+        customVariantInput.type = 'hidden';
+        customVariantInput.name = 'properties[Size]';
+        customVariantInput.value = customSizeSelect.value;
+        form.appendChild(customVariantInput);
+
+        // The form will proceed to submit naturally, including the custom size.
+    });
+});
