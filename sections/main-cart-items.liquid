@@ -281,6 +281,7 @@
                               href="{{ item.url_to_remove }}"
                               class="button button--tertiary"
                               aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
+                              data-variant-id="{{item.variant.id}}"
                             >
                               {% render 'icon-remove' %}
                             </a>

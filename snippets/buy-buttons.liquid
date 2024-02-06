@@ -51,6 +51,9 @@
         novalidate: 'novalidate',
         data-type: 'add-to-cart-form'
       -%}
+          {% if product.title == 'Hand Bag' %}
+                <input type="hidden" name="properties[Size]" id="hiddenCustomVariantInput">
+          {% endif %}
         <input
           type="hidden"
           name="id"
